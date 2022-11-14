@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Editar cliente </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form.css')}}">
+    <script src="https://kit.fontawesome.com/71fde90bd7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" > Home </a>
+        <div class="dropdown">
+            <button id="active" class="dropbtn"> Clientes
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/clientes"> Ver todos </a>
+                <a href="/clientes/add"> Adicionar </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn"> Chamados
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/chamados"> Ver todos </a>
+                <a href="/chamados/add"> Adicionar </a>
+            </div>
+        </div>
+        <a href="/about"> Sobre </a>
+        <div style="float: right;" class="dropdown">
+            <button style="margin-right: 4px;" class="dropbtn"> Login
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div style="margin-left: -36px;" class="dropdown-content">
+                <a href="/check"> Entrar</a>
+                <a href="/logout"> Sair </a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="title"> Editar cliente:</h1>
+        <div>
+             <form method="POST" action="/clientes/edit={{ cliente['id'] }}">
+                 <h4 class="form-title"> Cliente:</h4>
+                 <input class="user-input" type="text" name="cpf" value="{{ cliente['cpf'] }}">
+                <input class="user-input" type="text" name="nome" value="{{ cliente['nome'] }}">
+                <input class="user-input" type="text" name="sobrenome" value="{{ cliente['sobrenome'] }}">
+                <input class="user-input" type="text" name="telefone" value="{{ cliente['telefone'] }}">
+                <h4 class="form-title"> Endereco:</h4>
+                <input class="user-input" type="text" name="cidade" value="{{ cliente['endereco']['cidade'] }}">
+                <input class="user-input" type="text" name="rua" value="{{ cliente['endereco']['rua'] }}">
+                <input class="user-input" type="number" name="numero" value="{{ cliente['endereco']['numero'] }}">
+                <input class="submit-input" type="submit" value=" Salvar ">
+                <input class="delete-input" type="submit" value="Apagar" formaction="/clientes/delete={{ cliente['id'] }}">
+            </form>
+
+        </div>
+
+    </div>
+</body>
+</html>

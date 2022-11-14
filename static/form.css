@@ -1,0 +1,54 @@
+.user-input , .password-input {
+    width: 70%;
+    height: auto;
+    margin: 1%;
+    margin-rigth: 15%;
+    margin-left: 15%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 24px;
+}
+
+.submit-input {
+    width: 12%;
+    height: auto;
+    margin: 1%;
+    margin-rigth: 44%;
+    margin-left: 44%;
+    padding: 8px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color:  #85A37C;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 5px 12px 0 rgba(0, 0, 0, 0.12);
+    color: white;
+}
+
+.delete-input {
+    width: 12%;
+    height: auto;
+    margin: 1%;
+    margin-rigth: 44%;
+    margin-left: 44%;
+    padding: 8px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 5px 12px 0 rgba(0, 0, 0, 0.12);
+}
+
+.select-form {
+    width: 20%;
+    height: auto;
+    margin: 1%;
+    margin-rigth: 40%;
+    margin-left: 40%;
+    padding: 8px;
+    font-size: 16px;
+}

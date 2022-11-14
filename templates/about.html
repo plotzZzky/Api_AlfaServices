@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Sobre </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <script src="https://kit.fontawesome.com/71fde90bd7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" > Home </a>
+        <div class="dropdown">
+            <button class="dropbtn"> Clientes
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/clientes"> Ver todos </a>
+                <a href="/clientes/add"> Adicionar </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn"> Chamados
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/chamados"> Ver todos </a>
+                <a href="/chamados/add"> Adicionar </a>
+            </div>
+        </div>
+        <a id="active" href="/about"> Sobre </a>
+        <div style="float: right;" class="dropdown">
+            <button style="margin-right: 4px;" class="dropbtn"> Login
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div style="margin-left: -36px;" class="dropdown-content">
+                <a href="/check"> Entrar</a>
+                <a href="/logout"> Sair </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1 class="title"> Objetivo: </h1>
+        <h3 style="text-align: center;"> Api feito por um estudante python para demostrar o uso do Flask, Sqlalchemy e PostgreSQL</h3>
+        <h3 style="text-align: center;"> Os end-points podem responder com json file atraves da chave 'Content-Type'= 'application/json' </h3>
+        <h2 style="text-align: center;"> Gerais: </h2>
+        <p><a href="/">/</a> Pagina inicial ['GET']</p>
+        <p><a href="/about">/about</a> Pagina sobre a api ['GET']</p>
+        <p><a href="/create">/create</a> Prenche as tabelas ['GET']</p>
+        <h2 style="text-align: center;"> Clientes: </h2>
+        <p><a href="/clientes">/clientes</a> Tabela com todos os clientes ['GET']</p>
+        <p><a href="/clientes/add">/clientes/add</a> Pagina para adicionar um cliente ['GET', 'POST']</p>
+        <p><a href="/clientes/id=1">/clientes/id=cliente_id</a> Pagina com apenas um cliente espeficico ['GET', 'POST']</p>
+        <p><a href="/clientes/edit=1">/clientes/edit=cliente_id</a> Pagina para editar um cliente ['GET', 'POST']</p>
+        <p><a href="/clientes/delete=1">/clientes/delete=cliente_id</a> Pagina para deletar um cliente ['POST']</p>
+        <h2 style="text-align: center;"> Chamados: </h2>
+        <p><a href="/chamados">/chamados</a> Tabela com todos os chamados ['GET']</p>
+        <p><a href="/chamados/add">/chamados/add</a> Pagina para adicionar um chamado['GET', 'POST']</p>
+        <p><a href="/chamados/id=1">/chamados/id=chamado_id</a> Pagina com apenas um chamado espeficico ['GET', 'POST']</p>
+        <p><a href="/chamados/edit=1">/chamados/edit=chamado_id</a> Pagina para editar um cliente ['GET', 'POST']</p>
+        <p><a href="/chamados/delete=1">/chamaods/delete=chamado_id</a> Pagina para deletar um cliente ['POST']</p>
+    </div>
+</body>
+</html>

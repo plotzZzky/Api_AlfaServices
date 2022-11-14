@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <script src="https://kit.fontawesome.com/71fde90bd7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" id="active"> Home </a>
+        <div class="dropdown">
+            <button class="dropbtn"> Clientes
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/clientes"> Ver todos </a>
+                <a href="/clientes/add"> Adicionar </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn"> Chamados
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/chamados"> Ver todos </a>
+                <a href="/chamados/add"> Adicionar </a>
+            </div>
+        </div>
+        <a href="/about"> Sobre </a>
+        <div style="float: right;" class="dropdown">
+            <button style="margin-right: 4px;" class="dropbtn"> Login
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div style="margin-left: -36px;" class="dropdown-content">
+                <a href="/check"> Entrar</a>
+                <a href="/logout"> Sair </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        {% if user != None %}
+            <h1 class="title"> Bem vindo {{ user.username }} </h1>
+        {% else %}
+            <h1 class="title"> Bem vindo a Alfa service </h1>
+        {% endif %}
+
+        <h2 style="text-align: center;"> Empresa numero 1º em serviços de internet na região!</h2>
+        <h2 style="text-align: center;"> Este portal se destina a nossos parceiros, para clientes acesse www.site-ficticio.com</h2>
+
+    </div>
+</body>
+</html>

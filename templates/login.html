@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Login </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css')}}">
+    <script src="https://kit.fontawesome.com/71fde90bd7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+     <div class="navbar">
+        <a href="/" > Home </a>
+        <div class="dropdown">
+            <button class="dropbtn"> Clientes
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/clientes"> Ver todos </a>
+                <a href="/clientes/add"> Adicionar </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn"> Chamados
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/chamados"> Ver todos </a>
+                <a href="/chamados/add"> Adicionar </a>
+            </div>
+        </div>
+        <a href="/about"> Sobre </a>
+        <div style="float: right;" class="dropdown">
+            <button id="active" style="margin-right: 4px;" class="dropbtn"> Login
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div style="margin-left: -36px;" class="dropdown-content">
+                <a href="/check"> Entrar</a>
+                <a href="/logout"> Sair </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-content">
+        <div class="tabs">
+          <button id="tab-active" style="float: left;" class="tablinks" onclick="show_login(this)"> Login </button>
+          <button  class="tablinks" onclick="show_signup(this)"> Signup </button>
+        </div>
+        <div style="display: block;" class="login-tab" id="Login">
+            <h1 class="title"> Entrar: </h1>
+            <form method="POST" action="/login">
+                <input class="user-input" type="text" name="username" placeholder="Usuario">
+                <input class="password-input" type="password" name="password" placeholder="Senha">
+                <input class="submit-input" type="submit" value="Entrar">
+            </form>
+        </div>
+        <div class="login-tab" id="Signup">
+            <h1 class="title"> Cadastrar: </h1>
+            <form method="POST" action="/signup">
+                <input class="user-input" type="text" name="username" placeholder="Usuario">
+                <input class="password-input" type="password" name="password" placeholder="Senha">
+                <input class="password-input" type="password" name="password_b" placeholder="Comfirme senha">
+                <input class="user-input" type="email" name="email" placeholder="Email">
+                <input class="submit-input" type="submit" value="Cadastrar">
+            </form>
+        </div>
+    </div>
+    <script>
+    function show_login(tab) {
+        var elements = document.getElementsByClassName('tablinks');
+        for (var i in elements) {
+            if (elements.hasOwnProperty(i)) {
+                elements[i].id = " ";
+        }
+    }
+
+        document.getElementById("Login").style.display = "block";
+        tab.id = "tab-active";
+        document.getElementById("Signup").style.display = "none";
+    }
+
+    function show_signup(tab) {
+        var elements = document.getElementsByClassName('tablinks');
+        for (var i in elements) {
+            if (elements.hasOwnProperty(i)) {
+                elements[i].id = " ";
+        }
+    }
+        document.getElementById("Login").style.display = "none";
+        tab.id = "tab-active";
+        document.getElementById("Signup").style.display = "block";
+    }
+
+    </script>
+
+</body>
+</html>

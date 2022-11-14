@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chamados</title>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <script src="https://kit.fontawesome.com/71fde90bd7.js" crossorigin="anonymous"></script>
+</head>
+
+<body  onload="show_concluidos()" >
+    <div class="navbar">
+        <a href="/" > Home </a>
+        <div class="dropdown">
+            <button class="dropbtn"> Clientes
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/clientes"> Ver todos </a>
+                <a href="/clientes/add"> Adicionar </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button id="active" class="dropbtn"> Chamados
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/chamados"> Ver todos </a>
+                <a href="/chamados/add"> Adicionar </a>
+            </div>
+        </div>
+        <a href="/about"> Sobre </a>
+        <div style="float: right;" class="dropdown">
+            <button style="margin-right: 4px;" class="dropbtn"> Login
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div style="margin-left: -36px;" class="dropdown-content">
+                <a href="/check"> Entrar</a>
+                <a href="/logout"> Sair </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1 class="title"> Chamados </h1>
+        {% block content %}
+        {% if data %}
+        <div>
+            <button class="table-button" onclick="show_concluidos()"> Mostrar concluidos</button>
+            <button class="table-button" onclick="show_all()"> Mostrar não concluidos </button>
+            <button class="table-button" onclick="show_espera()"> Apenas em aberto </button>
+        </div>
+        <input class="filter-table" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por pedido">
+            <table id="myTable" style="width:100%" >
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Estado</th>
+                        <th>Assunto</th>
+                        <th>Pedido</th>
+                        <th>Cliente</th>
+                        <th>Rua</th>
+                        <th>Numero</th>
+                        <th>Cidade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for item in data %}
+                    <tr>
+                        <td><a class="link" href="/chamados/id={{ item['id'] }}">{{ item['id'] }}</a></td>
+                        <td><a class="link" href="/chamados/edit={{ item['id'] }}">{{ item['estado'] }}</a></td>
+                        <td>{{ item['assunto'] }}</td>
+                        <td>{{ item['pedido'] }}</td>
+                        <td> <a class="link" href="/clientes/id={{ item['cliente']['id'] }}">{{ item['cliente']['nome'] }}</a></td>
+                        <td>{{ item['cliente']['endereco']['rua'] }}</td>
+                        <td>{{ item['cliente']['endereco']['numero'] }}</td>
+                        <td>{{ item['cliente']['endereco']['cidade'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% endblock content %}
+    </div>
+<script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+</script>
+<script>
+    function show_concluidos() {
+      var filter, table, tr, td, i, txtValue;
+      filter = "Concluido";
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue == filter) {
+            if (tr[i].style.display == "none") {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+          } else {
+            tr[i].style.display = "";
+          }
+        }
+      }
+    }
+</script>
+<script>
+    function show_espera() {
+      var filter, table, tr, td, i, txtValue;
+      filter = "Em aberto";
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue == filter) {
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+</script>
+<script>
+    function show_all() {
+      var filter, table, tr, td, i, txtValue;
+      filter = "Concluido";
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue != filter ) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+</script>
+</body>
+</html>
