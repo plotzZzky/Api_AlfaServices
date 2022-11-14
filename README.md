@@ -10,7 +10,7 @@ Feito por um estudante python com flask e PostgreSql
 - [x] Tabelas com chamados, e clientes;
 - [x] Permite criar novos chamados e usuario;
 - [x] Pode responder com json;
-- [x] Sisteam de login;
+- [x] Sistema de login;
 - [ ] Mais em breve...
 
 
