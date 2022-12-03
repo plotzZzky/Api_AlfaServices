@@ -15,6 +15,6 @@ Feito por um estudante python com flask e PostgreSql
 
 
 ## Importante:
-- O server roda atraves do main.py basta executa-lo para iniciar;
+- O server roda atraves do run.py basta executa-lo para iniciar;
 - É necessario um servidor PostgreSql;
 </p>
