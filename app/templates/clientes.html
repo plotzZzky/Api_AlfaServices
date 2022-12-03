@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+    {% block content %}
+
+        {% block head %}
+            <script type=text/javascript src="{{url_for('static', filename='js/clientes.js')}}"></script>
+        {% endblock %}
+
+        <div class="content">
+            <h1 class="title"> Clientes </h1>
+            {% block table %}
+            {% if data %}
+            <input class="filter-table" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por cpf">
+                <table id="myTable" style="width:100%" >
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Cpf</th>
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th>Telefone</th>
+                            <th>Cidade</th>
+                            <th>Rua</th>
+                            <th>Numero</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in data %}
+                        <tr>
+                            <td><a class="link" href="/clientes/id={{ item['id'] }}">{{ item['id'] }}</a></td>
+                            <td><a class="link" href="/clientes/edit={{ item['id'] }}">{{ item['cpf'] }}</a></td>
+                            <td>{{ item['nome'] }}</td>
+                            <td>{{ item['sobrenome'] }}</td>
+                            <td>{{ item['telefone'] }}</td>
+                            <td>{{ item['endereco']['cidade'] }}</td>
+                            <td>{{ item['endereco']['rua'] }}</td>
+                            <td>{{ item['endereco']['numero'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}

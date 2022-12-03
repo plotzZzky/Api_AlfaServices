@@ -3,5 +3,6 @@ flask_login
 werkzeug
 flask_sqlalchemy
 flask-marshmallow
+marshmallow
 marshmallow-sqlalchemy
 psycopg2

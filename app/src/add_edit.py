@@ -1,4 +1,5 @@
-from app import db, Clientes, Enderecos, Chamados
+from app.__init__ import db
+from app.models import Clientes, Enderecos, Chamados
 
 
 def add_new_cliente(request):

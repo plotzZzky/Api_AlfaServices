@@ -1,0 +1,8 @@
+# ignore archives
+*.log*
+
+#ignore folders
+./*
+.idea/*
+/__pycache__*
+.test

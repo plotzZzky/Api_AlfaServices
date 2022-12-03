@@ -1,11 +1,13 @@
 from flask import request, render_template, flash, redirect, jsonify
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.security import check_password_hash
-from auth import signup_user
-from src.db import add_clientes_base, add_chamado_base, add_enderecos_base
-from src.add_edit import edit_cliente, add_new_cliente, add_new_chamado, edit_chamado
-from app import (app, db, User, Clientes, Chamados, Enderecos, cliente_schema, clientes_schema, chamado_schema,
-                 chamados_schema)
+
+from app.auth import signup_user
+from app.src.db import add_clientes_base, add_chamado_base, add_enderecos_base
+from app.src.add_edit import edit_cliente, add_new_cliente, add_new_chamado, edit_chamado
+from app.__init__ import app, db
+from app.models import (User, Clientes, Chamados, Enderecos, cliente_schema, clientes_schema, chamado_schema,
+                        chamados_schema)
 
 
 # # # # # # # # # # # # # # # # !!!!Importante!!!! # # # # # # # # # # # # # # # #
@@ -25,7 +27,7 @@ def create_all():
 @app.route('/check', methods=['GET'])
 def check_login():
     if current_user.is_authenticated:
-        return redirect('/logout')
+        return redirect('/')
     else:
         return redirect('/login')
 
@@ -33,7 +35,7 @@ def check_login():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login.html', title='Entrar')
     else:
         username = request.form['username']
         password = request.form['password']
@@ -41,7 +43,7 @@ def login():
         if user is not None:
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
-                return redirect('/profile')
+                return redirect('/')
             else:
                 flash('Incorrect user or password')
                 return redirect('/login')
@@ -50,23 +52,23 @@ def login():
             return redirect('/login')
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['POST'])
 def signup():
-    if request.method == 'GET':
-        return render_template('signup.html')
+    query = signup_user(request)
+    if query:
+        return redirect('/')
     else:
-        query = signup_user(request)
-        if query:
-            return redirect('/')
-        else:
-            return redirect('/signup')
+        flash('Não foi possivel criar o usuario')
+        return redirect('/login')
 
 
 @app.route('/logout', methods=['GET'])
-@login_required
 def logout():
-    logout_user()
-    return redirect('/')
+    if current_user.is_authenticated:
+        logout_user()
+        return redirect('/')
+    else:
+        return redirect('/login')
 
 
 # # # # # # # # # # # # # # # # Clientes # # # # # # # # # # # # # # # #
@@ -190,11 +192,6 @@ def delete_chamado(chamado_id):
 
 # # # # # # # # # # # # # # # # Gerais # # # # # # # # # # # # # # # #
 
-@app.errorhandler(404)
-def not_found(e):
-    return redirect('/')
-
-
 @app.route('/', methods=['GET'])
 def home():
     if current_user.is_authenticated:
@@ -207,3 +204,13 @@ def home():
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
+
+
+@app.errorhandler(404)
+@app.errorhandler(405)
+def not_found(e):
+    flash('Pagina não encontrada!')
+    if request.referrer:
+        return redirect(request.referrer)
+    else:
+        return redirect('/')

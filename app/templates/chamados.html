@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+    {% block content %}
+        {% block head %}
+            <script type=text/javascript src="{{url_for('static', filename='js/chamados.js')}}"></script>
+        {% endblock %}
+
+    <body onload="show_concluidos()"> </body>
+        <div class="content">
+            <h1 class="title"> Chamados </h1>
+            {% block table %}
+            {% if data %}
+            <div>
+                <button class="table-button" onclick="show_concluidos()"> Mostrar concluidos</button>
+                <button class="table-button" onclick="show_all()"> Mostrar não concluidos </button>
+                <button class="table-button" onclick="show_espera()"> Apenas em aberto </button>
+            </div>
+            <input class="filter-table" type="text" id="myInput" onkeyup="filter()" placeholder="Buscar por pedido">
+                <table id="myTable" style="width:100%" >
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Estado</th>
+                            <th>Assunto</th>
+                            <th>Pedido</th>
+                            <th>Cliente</th>
+                            <th>Rua</th>
+                            <th>Numero</th>
+                            <th>Cidade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in data %}
+                        <tr>
+                            <td><a class="link" href="/chamados/id={{ item['id'] }}">{{ item['id'] }}</a></td>
+                            <td><a class="link" href="/chamados/edit={{ item['id'] }}">{{ item['estado'] }}</a></td>
+                            <td>{{ item['assunto'] }}</td>
+                            <td>{{ item['pedido'] }}</td>
+                            <td> <a class="link" href="/clientes/id={{ item['cliente']['id'] }}">{{ item['cliente']['nome'] }}</a></td>
+                            <td>{{ item['cliente']['endereco']['rua'] }}</td>
+                            <td>{{ item['cliente']['endereco']['numero'] }}</td>
+                            <td>{{ item['cliente']['endereco']['cidade'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}

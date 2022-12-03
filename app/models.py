@@ -1,25 +1,7 @@
-from flask import Flask
-from flask_login import LoginManager, UserMixin
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from app.__init__ import db, login_manager, ma
+
 from marshmallow import fields
-
-
-UPLOAD_FOLDER = 'static/uploaded_files'
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'webp', 'jpeg'}
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '192b9bdd22ab9ed4d12e236c78afcb9a393easssk9jhsbsbsusu82828s8j8sjs8s'
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://plotzky@localhost:5432/alfa"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-login_manager = LoginManager(app)
-login_manager.session_protection = "strong"
-login_manager.login_view = 'login'
-login_manager.init_app(app)
-
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
+from flask_login import UserMixin
 
 
 @login_manager.user_loader

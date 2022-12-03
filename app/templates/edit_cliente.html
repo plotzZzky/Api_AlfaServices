@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+    {% block content %}
+
+        {% block head %}
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form.css')}}">
+        {% endblock %}
+
+        <div class="content">
+            <h1 class="title"> Editar cliente:</h1>
+            <div>
+                 <form method="POST" action="/clientes/edit={{ cliente['id'] }}">
+                     <h4 class="form-title"> Cliente:</h4>
+                     <input class="user-input" type="text" name="cpf" value="{{ cliente['cpf'] }}">
+                    <input class="user-input" type="text" name="nome" value="{{ cliente['nome'] }}">
+                    <input class="user-input" type="text" name="sobrenome" value="{{ cliente['sobrenome'] }}">
+                    <input class="user-input" type="text" name="telefone" value="{{ cliente['telefone'] }}">
+                    <h4 class="form-title"> Endereco:</h4>
+                    <input class="user-input" type="text" name="cidade" value="{{ cliente['endereco']['cidade'] }}">
+                    <input class="user-input" type="text" name="rua" value="{{ cliente['endereco']['rua'] }}">
+                    <input class="user-input" type="number" name="numero" value="{{ cliente['endereco']['numero'] }}">
+                    <input class="submit-input" type="submit" value=" Salvar ">
+                    <input class="delete-input" type="submit" value="Apagar" formaction="/clientes/delete={{ cliente['id'] }}">
+                </form>
+
+            </div>
+
+        </div>
+    {% endblock %}

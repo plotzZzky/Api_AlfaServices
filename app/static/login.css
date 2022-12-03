@@ -1,12 +1,14 @@
 .login-content {
-    position: relative;
+    position: absolute;
 	width: 20%;
 	height: 50%;
-    margin: auto;
-    margin-top: 5%;
-    background-color: #333;
+    margin-left: 40%;
+    margin-top: 2%;
+    top: 10%;
     border-radius: 4px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+    background-color: #333;
+    overflow: hidden;
 }
 
 .login-tab {

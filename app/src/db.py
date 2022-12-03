@@ -1,4 +1,5 @@
-from app import db, Chamados, Clientes, Enderecos
+from app.__init__ import db
+from app.models import Chamados, Clientes, Enderecos
 
 clientes = [
     {'nome': 'ze', 'sobrenome': 'da silva', 'cpf': '000.000.000-00', 'telefone': '(51)0000-0000', },
@@ -39,7 +40,7 @@ def add_enderecos_base():
 
 def add_chamado_base():
     for item in chamdos:
-        chamdo = Chamados(cliente_id=item['cliente_id'], assunto=item['assunto'],
-                          estado=item['estado'], pedido=item['pedido'])
-        db.session.add(chamdo)
+        chamado = Chamados(cliente_id=item['cliente_id'], assunto=item['assunto'],
+                           estado=item['estado'], pedido=item['pedido'])
+        db.session.add(chamado)
         db.session.commit()

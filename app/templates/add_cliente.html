@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+    {% block content %}
+
+        {% block head %}
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form.css')}}">
+        {% endblock %}
+
+
+        <div class="content">
+            <h1 class="title"> Adicionar novo cliente:</h1>
+            <div>
+                 <form method="POST" action="/clientes/add">
+                     <h4 class="form-title"> Cliente:</h4>
+                     <input class="user-input" type="text" name="cpf" placeholder="Cpf">
+                    <input class="user-input" type="text" name="nome" placeholder="Nome">
+                    <input class="user-input" type="text" name="sobrenome" placeholder="Sobrenome">
+                    <input class="user-input" type="text" name="telefone" placeholder="Telefone">
+                    <h4 class="form-title"> Endereco:</h4>
+                    <input class="user-input" type="text" name="cidade" placeholder="Cidade">
+                    <input class="user-input" type="text" name="rua" placeholder="Rua">
+                    <input class="user-input" type="number" name="numero" placeholder="Numero">
+                    <input class="submit-input" type="submit" value="Adicionar cliente">
+                </form>
+
+            </div>
+
+        </div>
+    {% endblock %}

@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> Editar chamado</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form.css')}}">
     <script src="https://kit.fontawesome.com/71fde90bd7.js" crossorigin="anonymous"></script>
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <div class="navbar">
@@ -20,7 +21,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <button id="active" class="dropbtn"> Chamados
+            <button class="dropbtn"> Chamados
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
@@ -33,31 +34,13 @@
             <button style="margin-right: 4px;" class="dropbtn"> Login
               <i class="fa fa-caret-down"></i>
             </button>
-            <div style="margin-left: -36px;" class="dropdown-content">
+            <div class="dropdown-content">
                 <a href="/check"> Entrar</a>
                 <a href="/logout"> Sair </a>
             </div>
         </div>
     </div>
 
-    <div class="content">
-        <h1 class="title"> Editar chamado: </h1>
-        <div>
-             <form method="POST" action="/chamados/edit={{ chamado['id'] }}">
-                <input class="user-input" type="text" name="assunto" value="{{ chamado['assunto'] }}">
-                <input class="user-input" type="text" name="pedido" value="{{ chamado['pedido'] }}">
-                <select  class="select-form" name="estado">
-                    <option value="" selected disabled hidden>Selecione o estado</option>
-                    <option value="Em aberto">Em aberto</option>
-                    <option value="Em aguardo">Em aguardo</option>
-                    <option value="Concluido">Concluido</option>
-                </select>
-                <input class="submit-input" type="submit" value="Salvar">
-                <input class="delete-input" type="submit" value="Apagar" formaction="/chamados/delete={{ chamado['id'] }}">
-            </form>
-
-        </div>
-
-    </div>
+    {% block content %} {% endblock %}
 </body>
 </html>

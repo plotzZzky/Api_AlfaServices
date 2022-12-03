@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+    {% block content %}
+        <div class="content">
+
+            {% for message in get_flashed_messages() %}
+                <div class="alert-error">{{ message }}</div>
+            {% endfor %}
+
+            {% if user != None %}
+                <h1 class="title"> Bem vindo {{ user.username }} </h1>
+            {% else %}
+                <h1 class="title"> Bem vindo a Alfa service </h1>
+            {% endif %}
+
+            <h2 style="text-align: center;"> Empresa numero 1º em serviços de internet na região!</h2>
+            <h2 style="text-align: center;"> Este portal se destina a nossos parceiros, para clientes acesse www.site-ficticio.com</h2>
+
+        </div>
+    {% endblock %}
