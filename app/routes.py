@@ -19,7 +19,7 @@ def create_all():
     add_clientes_base()
     add_enderecos_base()
     add_chamado_base()
-    return redirect('/')
+    return redirect('/home')
 
 
 # # # # # # # # # # # # # # # # Login # # # # # # # # # # # # # # # #
@@ -27,7 +27,7 @@ def create_all():
 @app.route('/check', methods=['GET'])
 def check_login():
     if current_user.is_authenticated:
-        return redirect('/')
+        return redirect('/home')
     else:
         return redirect('/login')
 
@@ -43,7 +43,7 @@ def login():
         if user is not None:
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
-                return redirect('/')
+                return redirect('/home')
             else:
                 flash('Incorrect user or password')
                 return redirect('/login')
@@ -56,7 +56,7 @@ def login():
 def signup():
     query = signup_user(request)
     if query:
-        return redirect('/')
+        return redirect('/home')
     else:
         flash('Não foi possivel criar o usuario')
         return redirect('/login')
@@ -66,7 +66,7 @@ def signup():
 def logout():
     if current_user.is_authenticated:
         logout_user()
-        return redirect('/')
+        return redirect('/home')
     else:
         return redirect('/login')
 
@@ -82,7 +82,7 @@ def show_cliente():
     if content_type == 'application/json':
         return jsonify(result=result)
     else:
-        return render_template('clientes.html', data=result)
+        return render_template('clientes.html', data=result, title="Clientes")
 
 
 @app.route('/clientes/id=<int:cliente_id>', methods=['GET'])
@@ -95,7 +95,7 @@ def show_cliente_by_id(cliente_id):
     if content_type == 'application/json':
         return jsonify(result=result)
     else:
-        return render_template('clientes.html', data=result)
+        return render_template('clientes.html', data=result, title=f"Cliente {cliente.nome}")
 
 
 @app.route('/clientes/add', methods=['GET', 'POST'])
@@ -113,7 +113,7 @@ def add_cliente():
 def edit_clinete_id(cliente_id):
     cliente = db.session.execute(db.select(Clientes).filter_by(id=cliente_id)).scalar_one()
     if request.method == 'GET':
-        return render_template('edit_cliente.html', cliente=cliente)
+        return render_template('edit_cliente.html', cliente=cliente, title="Editar cliente")
     else:
         edit_cliente(request, cliente)
         return redirect('/clientes')
@@ -144,7 +144,7 @@ def show_chamados():
     if content_type == 'application/json':
         return jsonify(result=result)
     else:
-        return render_template('chamados.html', data=result)
+        return render_template('chamados.html', data=result, title="Chamados")
 
 
 @app.route('/chamados/id=<int:chamado_id>', methods=['GET', 'POST'])
@@ -157,14 +157,14 @@ def show_chamado_by_id(chamado_id):
     if content_type == 'application/json':
         return jsonify(result=result)
     else:
-        return render_template('chamados.html', data=result)
+        return render_template('chamados.html', data=result, title=f"Chamado {chamado.id}")
 
 
 @app.route('/chamados/add', methods=['GET', 'POST'])
 @login_required
 def add_chamado():
     if request.method == 'GET':
-        return render_template('add_chamado.html')
+        return render_template('add_chamado.html', title="Criar chamado")
     else:
         add_new_chamado(request)
         return redirect('/chamados')
@@ -175,7 +175,7 @@ def add_chamado():
 def edit_chamado_id(chamado_id):
     chamado = db.session.execute(db.select(Chamados).filter_by(id=chamado_id)).scalar_one()
     if request.method == 'GET':
-        return render_template('edit_chamado.html', chamado=chamado)
+        return render_template('edit_chamado.html', chamado=chamado, title="Editar chamado")
     else:
         edit_chamado(request, chamado)
         return redirect('/chamados')
@@ -192,25 +192,27 @@ def delete_chamado(chamado_id):
 
 # # # # # # # # # # # # # # # # Gerais # # # # # # # # # # # # # # # #
 
-@app.route('/', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def home():
+    print('home')
     if current_user.is_authenticated:
         user = current_user
     else:
         user = None
-    return render_template('home.html', user=user)
+    return render_template('home.html', user=user, title="Inicio")
 
 
 @app.route('/about', methods=['GET'])
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title="Sobre")
 
 
-@app.errorhandler(404)
 @app.errorhandler(405)
+@app.errorhandler(404)
 def not_found(e):
+    print(request.referrer)
     flash('Pagina não encontrada!')
     if request.referrer:
         return redirect(request.referrer)
     else:
-        return redirect('/')
+        return redirect('/home')
